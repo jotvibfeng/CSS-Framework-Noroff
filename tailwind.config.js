@@ -9,6 +9,7 @@ module.exports = {
         xs: "480px",
         "2xl": "1920px",
       },
+      fontFamily: { rob: ["roboto"] },
     },
   },
   darkMode: "selector",
