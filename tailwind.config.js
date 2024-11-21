@@ -2,7 +2,17 @@
 module.exports = {
   content: ["./**/*.{html,js}", "!./node_modules/**/*"],
   theme: {
-    extend: {},
+    extend: {
+      stroke: "currentColor",
+      colors: { customPurple: "#8685EF", customNav: "#aca9bb" },
+      screens: {
+        xs: "380px",
+        sm: "500px",
+        "2xl": "1920px",
+      },
+      fontFamily: { rob: ["roboto"] },
+    },
   },
+  darkMode: "selector",
   plugins: [],
 };
