@@ -6,7 +6,8 @@ module.exports = {
       stroke: "currentColor",
       colors: { customPurple: "#8685EF", customNav: "#aca9bb" },
       screens: {
-        xs: "480px",
+        xs: "380px",
+        sm: "500px",
         "2xl": "1920px",
       },
       fontFamily: { rob: ["roboto"] },
