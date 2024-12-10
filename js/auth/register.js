@@ -11,50 +11,48 @@ export function load(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-export async function register(my_username, email, password) {
+export async function getAPIKey() {
+  const response = await fetch(API_BASE + API_AUTH + API_KEY_URL);
+
+  if (response.ok) {
+    return await response.json();
+  }
+
+  console.error(await response.json());
+  throw new Error("Could not register for an API key!");
+}
+
+export async function register(name, email, password) {
   const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
     headers: {
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({ my_username, email, password }),
+    body: JSON.stringify({ name, email, password }),
   });
 
   if (response.ok) {
     return await response.json();
   }
 
-  const errorData = await response.json();
-  console.error("Registration failed:", errorData);
-  throw new Error(errorData.message || "Could not register the account");
+  throw new Error("Could not register the account");
 }
 
 export async function onAuth(event) {
   event.preventDefault();
-  const form = event.target;
+  const name = event.target.name.value;
+  const email = event.target.email.value;
+  const password = event.target.password.value;
 
-  const my_username = form.my_username.value; // Correct variable usage
-  const email = form.email.value;
-  const password = form.password.value;
-
-  try {
-    const user = await register(my_username, email, password); // Pass my_username correctly
-    save("user", user); // Save user details in localStorage
-    window.location.href = "profile.html"; // Redirect to profile page
-  } catch (error) {
-    console.error("Registration failed:", error);
-    alert("Failed to register. Please try again.");
+  if (event.submitter.dataset.auth === "login") {
+    await register(name, email, password);
+  } else {
+    await register(name, email, password);
   }
 }
 
 export function setAuthListener() {
-  const form = document.forms.auth; // Ensure form with name="auth" exists
-  if (form) {
-    form.addEventListener("submit", onAuth);
-  } else {
-    console.error("Form with name 'auth' not found in the document.");
-  }
+  document.forms.auth.addEventListener("submit", onAuth);
 }
 
-// Initialize listener
-document.addEventListener("DOMContentLoaded", setAuthListener);
+setAuthListener();
