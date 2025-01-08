@@ -1,11 +1,10 @@
+import { headers } from "../api/headers.js";
 import { API_AUTH, API_BASE, API_LOGIN } from "../api/posts/constant.js";
 import { save } from "../storage/save.js";
 
 export async function login(email, password) {
   const response = await fetch(API_BASE + API_AUTH + API_LOGIN, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers(true),
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
@@ -14,6 +13,8 @@ export async function login(email, password) {
     const { accessToken, ...profile } = (await response.json()).data;
     save("token", accessToken);
     save("profile", profile);
+
+    window.location.href = "/profile.html";
     return profile;
   }
 

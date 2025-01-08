@@ -1,4 +1,4 @@
-import { login } from "../../auth/login.js";
+import { getPosts } from "../../api/posts/get.js";
 import { register } from "../../auth/register.js";
 
 export async function onAuth(event) {
@@ -6,11 +6,13 @@ export async function onAuth(event) {
   const name = event.target.name.value;
   const email = event.target.email.value;
   const password = event.target.password.value;
+  const confirm_password = event.target.confirm_password.value;
 
   if (event.submitter.dataset.auth === "register") {
-    await login(email, password);
+    await register(name, email, password, confirm_password);
   } else {
-    await register(name, email, password);
-    await login(email, password);
+    await register(name, email, password, confirm_password);
   }
+
+  await getPosts();
 }

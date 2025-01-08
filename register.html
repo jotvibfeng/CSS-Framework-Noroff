@@ -77,7 +77,22 @@
               Must be at least 8 characters.
             </small>
           </div>
-          <div></div>
+          <div>
+            <label
+              for="confirm_password"
+              class="block text-gray-700 font-semibold"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              minlength="8"
+              required
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
           <button
             type="submit"
             name="submit"

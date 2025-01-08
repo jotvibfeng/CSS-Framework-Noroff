@@ -648,18 +648,6 @@ video {
   top: 5rem;
 }
 
-.top-5{
-  top: 1.25rem;
-}
-
-.bottom-5{
-  bottom: 1.25rem;
-}
-
-.bottom-10{
-  bottom: 2.5rem;
-}
-
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -749,14 +737,6 @@ video {
   height: auto;
 }
 
-.h-20{
-  height: 5rem;
-}
-
-.h-80{
-  height: 20rem;
-}
-
 .min-h-screen{
   min-height: 100vh;
 }
@@ -791,14 +771,6 @@ video {
 
 .w-full{
   width: 100%;
-}
-
-.w-20{
-  width: 5rem;
-}
-
-.w-80{
-  width: 20rem;
 }
 
 .max-w-4xl{
@@ -865,12 +837,6 @@ video {
   gap: 1.5rem;
 }
 
-.space-x-2 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-x-3 > :not([hidden]) ~ :not([hidden]){
   --tw-space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
@@ -883,6 +849,12 @@ video {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-2 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -893,12 +865,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .overflow-hidden{
@@ -1133,16 +1099,6 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-green-500{
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
-.text-red-500{
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .placeholder-customNav::-moz-placeholder{
