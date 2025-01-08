@@ -13,5 +13,9 @@ export async function register(name, email, password, confirm_password) {
     return await response.json();
   }
 
+  try {
+    await 
+  }
+
   throw new Error("Could not register the account");
 }
