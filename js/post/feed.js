@@ -65,17 +65,18 @@ async function fetchPosts() {
         "shadow-md"
       );
       postElement.innerHTML = `
-          <h3 class="text-xl font-bold mb-2">${post.title}</h3>
-          <p class="text-gray-700 mb-4">${
-            post.body || "No content available"
-          }</p> <!-- Handle null values -->
-          <button class="bg-customPurple text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition" onclick="deletePost(${
-            post.id
-          })">Delete</button>
-          <button class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition" onclick="showUpdateModal(${
-            post.id
-          }, '${post.title}', '${post.body || ""}')">Update</button>
-        `;
+            <h3 class="text-xl font-bold mb-2">${post.title}</h3>
+            <p class="text-gray-700 mb-4">${
+              post.body || "No content available"
+            }</p> <!-- Handle null values -->
+            <p class="text-gray-600 mb-4"> Post by: ${post.id}</p>
+            <button class="bg-customPurple text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition" onclick="deletePost(${
+              post.id
+            })">Delete</button>
+            <button class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition" onclick="showUpdateModal(${
+              post.id
+            }, '${post.title}', '${post.body || ""}')">Update</button>
+          `;
       postsContainer.appendChild(postElement);
     });
   } catch (error) {
@@ -103,8 +104,12 @@ function showUpdateModal(postId, title, body) {
   document.getElementById("postContent").value = body || "";
   document.getElementById("newPostModal").classList.remove("hidden");
 
-  document.getElementById("postForm").onsubmit = async (event) => {
-    event.preventDefault();
+  // Show the Update Post button and hide the Create Post button
+  document.getElementById("updatePostButton").classList.remove("hidden");
+  document.getElementById("createPostButton").classList.add("hidden");
+
+  // Set the updatePostHandler to use the correct postId
+  window.updatePostHandler = async () => {
     try {
       await updatePost(postId, {
         title: document.getElementById("postTitle").value,
