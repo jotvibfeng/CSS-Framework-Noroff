@@ -6,5 +6,5 @@ export const API_REGISTER = "/register";
 export const API_LOGIN = "/login";
 export const API_KEY_URL = "/create-api-key";
 export const API_POSTS = "/social/posts";
-export const API_POSTS_PROFILE = "/social/profiles/<name>/posts";
-export const API_SEARCH = "/social/posts/search?q=<query>";
+export const API_POSTS_PROFILE = "/social/profiles";
+export const API_SEARCH = "/social/posts/search";

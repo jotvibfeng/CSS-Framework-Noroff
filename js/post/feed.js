@@ -43,7 +43,6 @@ async function fetchPosts() {
       throw new Error("Failed to fetch posts");
     }
     const responseData = await response.json();
-    console.log("Full API response:", responseData);
 
     const posts = responseData.data || responseData;
 
@@ -72,19 +71,57 @@ function displayPosts(posts) {
       "bg-white",
       "shadow-md"
     );
-    postElement.innerHTML = `
-          <h3 class="text-xl font-bold mb-2">${post.title}</h3>
-          <p class="text-gray-700 mb-4">${
-            post.body || "No content available"
-          }</p> <!-- Handle null values -->
-          <p class="text-gray-600 mb-4">Post by: ${post.id}</p>
-          <button class="bg-customPurple text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition" onclick="deletePost(${
-            post.id
-          })">Delete</button>
-          <button class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition" onclick="showUpdateModal(${
-            post.id
-          }, '${post.title}', '${post.body || ""}')">Update</button>
-        `;
+
+    const postTitle = document.createElement("h3");
+    postTitle.classList.add("text-xl", "font-bold", "mb-2");
+    postTitle.textContent = post.title;
+
+    const postBody = document.createElement("p");
+    postBody.classList.add("text-gray-700", "mb-4");
+    postBody.textContent = post.body || "No content available"; // Handle null values
+
+    const postAuthor = document.createElement("p");
+    postAuthor.classList.add("text-gray-600", "mb-4");
+    postAuthor.textContent = `Post by: ${post.id}`;
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("flex", "gap-4"); // Add flex and gap classes
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add(
+      "bg-customPurple",
+      "text-white",
+      "px-6",
+      "py-2",
+      "rounded-lg",
+      "hover:bg-purple-600",
+      "transition"
+    );
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = () => deletePost(post.id);
+
+    const updateButton = document.createElement("button");
+    updateButton.classList.add(
+      "bg-teal-500",
+      "text-white",
+      "px-6",
+      "py-2",
+      "rounded-lg",
+      "hover:bg-teal-600",
+      "transition"
+    );
+    updateButton.textContent = "Update";
+    updateButton.onclick = () =>
+      showUpdateModal(post.id, post.title, post.body || "");
+
+    buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(updateButton);
+
+    postElement.appendChild(postTitle);
+    postElement.appendChild(postBody);
+    postElement.appendChild(postAuthor);
+    postElement.appendChild(buttonContainer);
+
     postsContainer.appendChild(postElement);
   });
 }
@@ -113,6 +150,7 @@ function showUpdateModal(postId, title, body) {
   document.getElementById("updatePostButton").classList.remove("hidden");
   document.getElementById("createPostButton").classList.add("hidden");
 
+  // Set the updatePostHandler to use the correct postId
   window.updatePostHandler = async () => {
     try {
       await updatePost(postId, {
@@ -145,25 +183,19 @@ async function updatePost(postId, post) {
 
 async function searchPosts() {
   const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-  console.log("Search term:", searchTerm);
   try {
     const headersConfig = headers(true);
-    console.log("Headers:", headersConfig);
 
     const response = await fetch(`${API_BASE + API_SEARCH}?q=${searchTerm}`, {
       method: "GET",
       headers: headersConfig,
     });
-    console.log("Response status:", response.status);
 
     if (!response.ok) {
       throw new Error("Failed to search posts");
     }
 
     const responseData = await response.json();
-    console.log("Search API response:", responseData);
-    console.log("API URL:", `${API_BASE + API_SEARCH}?q=${searchTerm}`);
-    console.log("Search term:", searchTerm);
 
     const posts = responseData.data || [];
 
