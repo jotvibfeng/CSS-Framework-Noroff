@@ -35,15 +35,23 @@ async function createPost(post) {
 
 async function fetchPosts() {
   try {
-    const response = await fetch(`${API_BASE + API_POSTS}`, {
+    const tag = document.getElementById("sortSelect").value;
+    let url = `${API_BASE + API_POSTS}`;
+
+    if (tag) {
+      url += `?_tag=${tag}`;
+    }
+
+    const response = await fetch(url, {
       method: "GET",
       headers: headers(true),
     });
+
     if (!response.ok) {
       throw new Error("Failed to fetch posts");
     }
-    const responseData = await response.json();
 
+    const responseData = await response.json();
     const posts = responseData.data || responseData;
 
     if (!Array.isArray(posts)) {
@@ -85,13 +93,13 @@ function displayPosts(posts) {
     postAuthor.textContent = `Post by: ${post.id}`;
 
     const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("flex", "gap-4"); // Add flex and gap classes
+    buttonContainer.classList.add("flex", "gap-2"); // Add flex and gap classes
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add(
       "bg-customPurple",
       "text-white",
-      "px-6",
+      "px-4",
       "py-2",
       "rounded-lg",
       "hover:bg-purple-600",
@@ -104,7 +112,7 @@ function displayPosts(posts) {
     updateButton.classList.add(
       "bg-teal-500",
       "text-white",
-      "px-6",
+      "px-4",
       "py-2",
       "rounded-lg",
       "hover:bg-teal-600",
@@ -215,5 +223,6 @@ window.deletePost = deletePost;
 window.showUpdateModal = showUpdateModal;
 
 document.getElementById("searchInput").addEventListener("input", searchPosts);
+document.getElementById("sortSelect").addEventListener("change", fetchPosts);
 
 fetchPosts();
