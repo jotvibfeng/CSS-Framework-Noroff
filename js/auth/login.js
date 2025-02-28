@@ -2,6 +2,15 @@ import { headers } from "../api/headers.js";
 import { API_AUTH, API_BASE, API_LOGIN } from "../api/posts/constant.js";
 import { save } from "../storage/save.js";
 
+/**
+ * Logs in a user by sending a POST request to the API.
+ * @async
+ * @function login
+ * @param {string} email - The email of the user.
+ * @param {string} password - The password of the user.
+ * @returns {Promise<Object>} The profile data from the API if the login is successful.
+ * @throws Will throw an error if the login fails.
+ */
 export async function login(email, password) {
   const response = await fetch(API_BASE + API_AUTH + API_LOGIN, {
     headers: headers(true),

@@ -1,6 +1,12 @@
 import { getPosts } from "../../api/posts/get.js";
 import { register } from "../../auth/register.js";
 
+/**
+ * Handles the authentication form submission.
+ * @async
+ * @function onAuth
+ * @param {Event} event - The form submission event.
+ */
 export async function onAuth(event) {
   event.preventDefault();
   const name = event.target.name.value;

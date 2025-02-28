@@ -1,6 +1,12 @@
 import { load } from "../storage/load.js";
 import { API_KEY } from "./posts/constant.js";
 
+/**
+ * Generates headers for API requests.
+ * @function headers
+ * @param {boolean} [hasBody=false] - Indicates whether the request has a body.
+ * @returns {Headers} The headers for the API request.
+ */
 export function headers(hasBody = false) {
   const headers = new Headers();
 
