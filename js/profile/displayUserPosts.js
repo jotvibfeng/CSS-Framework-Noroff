@@ -1,30 +1,31 @@
-import { deletePost } from "./deletePost.js";
-import { showUpdateModal } from "./showUpdateModal.js";
-
 /**
- * Displays a list of posts on the page.
- * @function displayPosts
- * @param {Array<Object>} posts - An array of post objects to display.
+ * Displays the user posts on the page.
+ * @function displayUserPosts
+ * @param {Object} userPosts - The object containing user posts data.
  */
-export function displayPosts(posts) {
-  const postsContainer = document.getElementById("postsContainer");
+export function displayUserPosts(userPosts) {
+  const posts = userPosts.data || [];
+
+  const postsContainer = document.getElementById("profile-post");
   postsContainer.innerHTML = "";
+
+  if (!Array.isArray(posts)) {
+    console.error("Posts is not an array:", posts);
+    return;
+  }
 
   posts.forEach((post) => {
     const postElement = document.createElement("div");
     postElement.classList.add(
+      "w-custom",
       "border",
       "rounded-lg",
       "p-4",
       "mb-4",
       "bg-white",
       "shadow-md",
-      "cursor-pointer"
+      "mx-auto"
     );
-
-    postElement.addEventListener("click", () => {
-      window.location.href = `/postDetail.html?id=${post.id}`;
-    });
 
     const postTitle = document.createElement("h3");
     postTitle.classList.add("text-xl", "font-bold", "mb-2");
@@ -32,39 +33,27 @@ export function displayPosts(posts) {
 
     const postBody = document.createElement("p");
     postBody.classList.add("text-gray-700", "mb-4");
-    postBody.textContent = post.body || "No content available";
+    postBody.textContent = post.body || "No content available"; // Handle null values
 
     const postAuthor = document.createElement("p");
     postAuthor.classList.add("text-gray-600", "mb-4");
     postAuthor.textContent = `Post by: ${post.id}`;
 
-    const postImage = document.createElement("img");
-    postImage.classList.add("w-custom", "h-hcustom", "mb-4", "rounded-lg");
-    if (post.media && post.media.url) {
-      postImage.src = post.media.url;
-      postImage.alt = post.media.alt || "Post image";
-    } else {
-      postImage.style.display = "none";
-    }
-
     const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("flex", "gap-4");
+    buttonContainer.classList.add("flex", "gap-4"); // Add flex and gap classes
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add(
       "bg-customPurple",
       "text-white",
-      "px-6",
+      "px-2",
       "py-2",
       "rounded-lg",
       "hover:bg-purple-600",
       "transition"
     );
     deleteButton.textContent = "Delete";
-    deleteButton.onclick = (event) => {
-      event.stopPropagation();
-      deletePost(post.id);
-    };
+    deleteButton.onclick = () => deletePost(post.id);
 
     const updateButton = document.createElement("button");
     updateButton.classList.add(
@@ -77,10 +66,8 @@ export function displayPosts(posts) {
       "transition"
     );
     updateButton.textContent = "Update";
-    updateButton.onclick = (event) => {
-      event.stopPropagation();
+    updateButton.onclick = () =>
       showUpdateModal(post.id, post.title, post.body || "");
-    };
 
     buttonContainer.appendChild(deleteButton);
     buttonContainer.appendChild(updateButton);
@@ -88,7 +75,6 @@ export function displayPosts(posts) {
     postElement.appendChild(postTitle);
     postElement.appendChild(postBody);
     postElement.appendChild(postAuthor);
-    postElement.appendChild(postImage);
     postElement.appendChild(buttonContainer);
 
     postsContainer.appendChild(postElement);

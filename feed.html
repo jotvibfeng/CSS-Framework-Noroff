@@ -191,7 +191,7 @@
               id="sortSelect"
               class="border rounded-md px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-            <option value="[]">Select tag</option>
+              <option value="[]">Select tag</option>
               <option value="travel">Travel</option>
               <option value="dog">dog</option>
               <option value="frontend">frontend</option>
@@ -199,87 +199,111 @@
               <option value="numerouno">numerouno</option>
             </select>
           </div>
-          <div class="flex items-center space-x-4 mt-4">
-          
-        </div>
+          <div class="flex items-center space-x-4 mt-4"></div>
 
-        <div
-          id="newPostModal"
-          class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-        >
-          <div class="bg-white rounded-lg p-6 w-full max-w-lg m-4">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-xl font-bold">Create New Post</h2>
-              <button
-                onclick="document.getElementById('newPostModal').classList.add('hidden')"
-                class="text-gray-500 hover:text-gray-700"
-              >
-                <i data-lucide="x" class="w-6 h-6"></i>
-              </button>
-            </div>
-            <form id="postForm" class="space-y-4">
-              <div>
-                <label class="block text-gray-700 mb-2">Title</label>
-                <input
-                  type="text"
-                  id="postTitle"
-                  class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label class="block text-gray-700 mb-2">Content</label>
-                <textarea
-                  id="postContent"
-                  class="w-full border rounded-lg px-4 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                ></textarea>
-              </div>
-              <div class="flex justify-end space-x-3">
+          <div
+            id="newPostModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          >
+            <div class="bg-white rounded-lg p-6 w-full max-w-lg m-4">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Create New Post</h2>
                 <button
-                  type="button"
                   onclick="document.getElementById('newPostModal').classList.add('hidden')"
-                  class="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  class="text-gray-500 hover:text-gray-700"
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  id="createPostButton"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-                >
-                  Create Post
-                </button>
-                <button
-                  type="button"
-                  id="updatePostButton"
-                  class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition hidden"
-                  onclick="updatePostHandler()"
-                >
-                  Update Post
+                  <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-
-        <div
-          id="postContentModal"
-          class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-        >
-          <div class="bg-white rounded-lg p-6 w-full max-w-lg m-4">
-            <div id="postsContent" class="space-y-4"></div>
-            <div class="flex justify-end">
-              <button
-                onclick="closePostContentModal()"
-                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-              >
-                Close
-              </button>
+              <form id="postForm" class="space-y-4">
+                <div>
+                  <label class="block text-gray-700 mb-2">Title</label>
+                  <input
+                    type="text"
+                    id="postTitle"
+                    class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-2">Content</label>
+                  <textarea
+                    id="postContent"
+                    class="w-full border rounded-lg px-4 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  ></textarea>
+                </div>
+                <div>
+                  <label class="block text-gray-700 mb-2">Image</label>
+                  <input
+                    type="file"
+                    id="postImage"
+                    class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div class="flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    onclick="document.getElementById('newPostModal').classList.add('hidden')"
+                    class="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    id="createPostButton"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                  >
+                    Create Post
+                  </button>
+                  <button
+                    type="button"
+                    id="updatePostButton"
+                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition hidden"
+                    onclick="updatePostHandler()"
+                  >
+                    Update Post
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-        </div>
 
-        <!-- Posts Container -->
-        <div id="postsContainer"></div>
+          <div
+            id="postContentModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          >
+            <div class="bg-white rounded-lg p-6 w-full max-w-lg m-4">
+              <div id="postsContent" class="space-y-4"></div>
+              <div class="flex justify-end">
+                <button
+                  onclick="closePostContentModal()"
+                  class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="postContentModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          >
+            <div class="bg-white rounded-lg p-6 w-full max-w-lg m-4">
+              <div id="postsContent" class="space-y-4"></div>
+              <div class="flex justify-end">
+                <button
+                  onclick="closePostContentModal()"
+                  class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posts Container -->
+          <div id="postsContainer"></div>
+        </div>
       </div>
     </main>
   </body>
