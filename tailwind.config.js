@@ -11,6 +11,12 @@ module.exports = {
         "2xl": "1920px",
       },
       fontFamily: { rob: ["roboto"] },
+      width: {
+        custom: "50%",
+      },
+      height: {
+        hcustom: "50%",
+      },
     },
   },
   darkMode: "selector",
