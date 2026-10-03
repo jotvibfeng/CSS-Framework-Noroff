@@ -1,5 +1,5 @@
-import { headers } from "../api/headers.js";
-import { API_AUTH, API_BASE, API_REGISTER } from "../api/posts/constant.js";
+import { headers } from '../api/headers.js'
+import { API_AUTH, API_BASE, API_REGISTER } from '../api/posts/constant.js'
 
 /**
  * Registers a new user by sending a POST request to the API.
@@ -15,26 +15,27 @@ import { API_AUTH, API_BASE, API_REGISTER } from "../api/posts/constant.js";
 export async function register(name, email, password, confirm_password) {
   const response = await fetch(API_BASE + API_AUTH + API_REGISTER, {
     headers: headers(true),
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ name, email, password, confirm_password }),
-  });
+  })
 
-  const messageElement = document.getElementById("message");
+  const messageElement = document.getElementById('message')
 
   if (response.ok) {
-    const data = await response.json();
-    messageElement.textContent = "Registration successful";
-    messageElement.style.color = "green";
-    window.location = "/profile.html";
-    return data;
+    const data = await response.json()
+    messageElement.textContent = 'Registration successful'
+    messageElement.style.color = 'green'
+    window.location.href = '/login.html'
+    return data
   }
 
-  try {
-    await response.json();
-  } catch (error) {
-    messageElement.textContent = "Profile already exists";
-    messageElement.style.color = "red";
-  }
+  const errorData = await response.json().catch(() => null)
+  const errorMessage =
+    errorData?.errors?.[0]?.message ??
+    errorData?.message ??
+    'Could not register the account'
 
-  throw new Error("Could not register the account");
+  messageElement.textContent = errorMessage
+  messageElement.style.color = 'red'
+  throw new Error(errorMessage)
 }

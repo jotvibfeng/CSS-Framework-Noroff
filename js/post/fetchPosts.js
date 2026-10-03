@@ -1,38 +1,64 @@
-import { API_BASE, API_POSTS } from "../api/posts/constant.js";
-import { headers } from "../api/headers.js";
-import { displayPosts } from "./displayPosts.js";
+import { API_BASE, API_POSTS } from '../api/posts/constant.js'
+import { headers } from '../api/headers.js'
+import { displayPosts } from './displayPosts.js'
+import { load } from '../storage/load.js'
+
+function showLoginPrompt() {
+  const postsContainer = document.getElementById('postsContainer')
+  postsContainer.innerHTML = `
+    <p class="p-4 text-center text-red-500">
+      Please log in to view posts.
+    </p>
+    <a
+      href="/login.html"
+      class="block text-center text-teal-600 font-semibold"
+    >
+      Go to login
+    </a>
+  `
+}
 
 export async function fetchPosts() {
-  try {
-    const tag = document.getElementById("sortSelect").value;
-    let url = `${API_BASE + API_POSTS}`;
+  if (!load('token')) {
+    showLoginPrompt()
+    return
+  }
 
-    if (tag && tag !== "[]") {
-      url += `?_tag=${tag}`;
+  try {
+    const tag = document.getElementById('sortSelect').value
+    let url = `${API_BASE + API_POSTS}?_author=true`
+
+    if (tag && tag !== '[]') {
+      url += `&_tag=${tag}`
     }
 
     const response = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: headers(true),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error("Failed to fetch posts");
+      if (response.status === 401) {
+        showLoginPrompt()
+        return
+      }
+
+      throw new Error('Failed to fetch posts')
     }
 
-    const responseData = await response.json();
-    const posts = responseData.data || responseData;
+    const responseData = await response.json()
+    const posts = responseData.data || responseData
 
     if (!Array.isArray(posts)) {
-      console.error("API response is not an array:", posts);
-      return;
+      console.error('API response is not an array:', posts)
+      return
     }
 
-    posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 
-    displayPosts(posts);
+    displayPosts(posts)
   } catch (error) {
-    console.error("Error in fetchPosts:", error);
+    console.error('Error in fetchPosts:', error)
   }
 }
 
@@ -45,16 +71,16 @@ export async function fetchImages() {
   try {
     const response = await fetch(`${API_BASE + API_POSTS}`, {
       headers: headers(true),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error("Failed to fetch posts");
+      throw new Error('Failed to fetch posts')
     }
 
-    const result = await response.json();
-    const posts = result.data;
-    displayPosts(posts);
+    const result = await response.json()
+    const posts = result.data
+    displayPosts(posts)
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.error('Error fetching posts:', error)
   }
 }

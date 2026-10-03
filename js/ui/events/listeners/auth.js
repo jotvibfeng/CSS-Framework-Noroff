@@ -1,16 +1,12 @@
-import { onAuth } from "../onAuth.js";
-import { onAuthLogin } from "../onAuthLogin.js";
+import { onAuth } from '../onAuth.js'
+import { onAuthLogin } from '../onAuthLogin.js'
 
-/**
- * Sets up the authentication listener on the auth form.
- * @function setAuthListener
- */
 export function setAuthListener() {
-  document.forms.auth.addEventListener("submit", (event) => {
-    onAuth(event);
-    onAuthLogin(event);
-  });
+  document.forms.auth.addEventListener('submit', async (event) => {
+    if (event.currentTarget.elements.name) {
+      await onAuth(event) // register form has a name field
+    } else {
+      await onAuthLogin(event) // login form has no name field
+    }
+  })
 }
-
-// Initialize the authentication listener
-setAuthListener();

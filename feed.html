@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -74,11 +74,12 @@
               class="py-4 px-2 text-black font-semibold hover:text-white transition duration-300"
               >Option</a
             >
-            <a
-              href="/index.html"
-              class="py-4 px-2 text-black font-semibold hover:text-white transition duration-300"
-              >Signup</a
+            <button
+              type="button"
+              class="logout-btn py-4 px-2 text-black font-semibold hover:text-white transition duration-300"
             >
+              Logout
+            </button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -161,11 +162,12 @@
               >
             </li>
             <li>
-              <a
-                href="/"
-                class="block text-sm py-4 px-2 bg-customPurple font-semibold"
-                >Signup</a
+              <button
+                type="button"
+                class="logout-btn py-4 px-2 text-black font-semibold"
               >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
@@ -176,7 +178,9 @@
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-bold text-gray-900">Feed</h1>
           <button
-            onclick="document.getElementById('newPostModal').classList.remove('hidden')"
+            onclick="
+              document.getElementById('newPostModal').classList.remove('hidden')
+            "
             class="bg-teal-500 text-white py-2 px-4 w-auto rounded-lg font-semibold hover:bg-teal-300 transition-colors"
           >
             New Post
@@ -209,7 +213,11 @@
               <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Create New Post</h2>
                 <button
-                  onclick="document.getElementById('newPostModal').classList.add('hidden')"
+                  onclick="
+                    document
+                      .getElementById('newPostModal')
+                      .classList.add('hidden')
+                  "
                   class="text-gray-500 hover:text-gray-700"
                 >
                   <i data-lucide="x" class="w-6 h-6"></i>
@@ -242,7 +250,11 @@
                 <div class="flex justify-end space-x-3">
                   <button
                     type="button"
-                    onclick="document.getElementById('newPostModal').classList.add('hidden')"
+                    onclick="
+                      document
+                        .getElementById('newPostModal')
+                        .classList.add('hidden')
+                    "
                     class="px-4 py-2 text-gray-600 hover:text-gray-800"
                   >
                     Cancel
